@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @alien.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @alien.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @alien.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @alien.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_alien_path(@alien) %> |
+<%= link_to 'Back', aliens_path %>

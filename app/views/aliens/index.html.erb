@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Aliens</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aliens.each do |alien| %>
+      <tr>
+        <td><%= alien.name %></td>
+        <td><%= alien.address %></td>
+        <td><%= alien.latitude %></td>
+        <td><%= alien.longitude %></td>
+        <td><%= link_to 'Show', alien %></td>
+        <td><%= link_to 'Edit', edit_alien_path(alien) %></td>
+        <td><%= link_to 'Destroy', alien, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alien', new_alien_path %>
+
+
+
+<div class="centered">
+  <h1>Alien Finder</h1>
+  <%= form_tag aliens_path, :method => :get do %>
+    <p>
+      Source:<%= text_field_tag :search, params[:search],:id => 'geo-input' %>
+      Destination:<%= text_field_tag :search, params[:search],:id => 'geo-input2' %>
+      <%= submit_tag "Search Near", :name => nil %>
+    </p>
+  <% end %>
+
+  <h3>Nearby Aliens</h3>
+  <% @aliens.each do |alien| %>
+    <p>
+      <div class="res">
+      <b><%= alien.name %></b></br>
+         <%= alien.address %></br>
+
+          <%#= alien.distance.to_f.round(2) %> miles
+
+      </div>
+    </p>
+  <% end %>
+  
+</div>
+
+<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map1"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map1'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDurDU6FM4D6yrmVpEF9LqcCmxqcLhG3AU&callback=initMap"
+    async defer></script>
